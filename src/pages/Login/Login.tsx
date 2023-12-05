@@ -12,16 +12,20 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from "../../assets/roomify-logo.jpeg"
 import "./Login.scss";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../stores/authSlice';
 
 
 const defaultTheme = createTheme();
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         //const data = new FormData(event.currentTarget);
-        localStorage.setItem("userToken","test");
+        dispatch(login({"token": "test"}));
         navigate('/property-verification');   
     };
 
