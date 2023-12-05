@@ -48,3 +48,31 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Reference
 
 https://www.youtube.com/watch?v=KvfA4KSSweo
+
+
+User Management
+    Manage User Profiles (Students, Landlords, Colleges)
+    Approve/Disapprove Registrations
+    Moderate User-Generated Content
+
+Property Management
+    Manage Property Listings
+    Monitor Lease Agreements
+    Generate Reports
+
+Verification and Validation
+    Oversee Verification Process
+    Handle User Disputes
+
+Notifications and Alerts
+    Send Announcements
+    Monitor Support Requests
+
+Document Management
+    Manage Rental Agreements
+    Store ID Proofs and Verification Documents
+
+
+Security and Privacy
+    Implement Security Measures
+    Encrypt Sensitive Information

@@ -1,27 +1,31 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import { routes } from './routes';
-import { Home } from './pages';
+import { Login } from './pages';
 import Layout from './layout/Layout/Layout';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(localStorage.getItem("userToken") !== null);
+  }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {
-            routes.map(route => (
-              <Route
-                path={route.path}
-                element={<route.component />}
-                key={route.name}
-              />
-            ))
-          }
+        <Route path="/login" element={!loggedIn ? <Login /> : <Navigate to="/" />} />
+
+        <Route path="/" element={loggedIn ? <Layout /> : <Navigate to="/login" />}>
+          {routes.map(route => (
+            <Route
+              path={route.path}
+              element={<route.component />}
+              key={route.name}
+            />
+          ))}
         </Route>
-        <Route path="*" element={<Home />}></Route>
       </Routes>
     </BrowserRouter>
   );
