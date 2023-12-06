@@ -10,4 +10,5 @@ export enum RoutePath {
     ERROR = "/error",
     MESSAGES = "/messages",
     SETTINGS = "/settings",
+    COLLEGE_REGISTRATION = "/college-detail",
 }
