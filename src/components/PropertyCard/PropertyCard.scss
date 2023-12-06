@@ -120,4 +120,19 @@
 .badge-v2.card-property {
   top: 20px;
   right: 20px;
+
+  &.approved {
+    background-color: $green-1;
+    color: $white;
+  }
+
+  &.pending {
+    background-color: $purple-2;
+    color: $white;
+  }
+
+  &.rejected {
+    background-color: $primary-1;
+    color: $white;
+  }
 }

@@ -26,7 +26,7 @@ const Login = () => {
         event.preventDefault();
         //const data = new FormData(event.currentTarget);
         dispatch(login({"token": "test"}));
-        navigate('/property-verification');   
+        navigate('/');   
     };
 
   return (
