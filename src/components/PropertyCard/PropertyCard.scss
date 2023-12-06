@@ -1,0 +1,123 @@
+@import "../../styles/global-var.scss";
+
+.property-card {
+    width: 320px; /* Adjust width as needed */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.property-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    .property-title {
+        color: $purple-1;
+    }
+}
+
+.property-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover;
+}
+
+.property-price {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px;
+    padding-left: 0;
+}
+
+.property-title {
+    font-size: 18px;
+    padding: 0 10px;
+    padding-left: 0;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.property-address {
+    color: $neutral-600;
+}
+
+.property-details {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 20px;    
+}
+
+.property-details span {
+    font-size: 14px;
+}
+
+
+.badge {
+  background-color: $neutral-100;
+  box-shadow: 0 1px 6px 0 $shadow-badge;
+  color: $neutral-800;
+  text-align: center;
+  border-radius: 40px;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.143em;
+  display: flex;
+}
+
+.badge-icon {
+    margin-right: 8px;
+}
+
+.badge.spacing-18px {
+  margin-bottom: 18px;
+  margin-right: 18px;
+}
+
+.badge.spacing-12px {
+  margin-bottom: 12px;
+  margin-right: 12px;
+}
+
+.card-property-content {
+    padding: 10px 12px 8px;
+}
+
+.image.card-property-address-icon {
+  max-width: 15px;
+  align-self: flex-start;
+  margin-right: 8px;
+}
+
+.flex {
+  display: flex;
+}
+
+.text-100 {
+  font-size: 16px;
+  line-height: 1.125em;
+}
+
+
+
+.badge-v2 {
+  background-color: $neutral-100;
+  box-shadow: 0 1px 6px 0 $shadow-badge;
+  color: $neutral-800;
+  border-radius: 60px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.375em;
+  position: absolute;
+}
+
+.badge-v2.card-property {
+  top: 20px;
+  right: 20px;
+}
