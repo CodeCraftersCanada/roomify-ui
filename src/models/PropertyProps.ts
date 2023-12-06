@@ -6,5 +6,6 @@ export default interface PropertyProps {
     area: number,
     beds: number, 
     baths: number,
-    imageUrl: string
+    imageUrl: string,
+    onHandleEvent?: () => void,
 }

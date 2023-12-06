@@ -4,6 +4,7 @@ import { RoutePath } from "./enums/RoutePath";
 import { RouteProps } from "./models/RouteProps";
 import { Home, Login, PropertyVerification, UserVerification } from "./pages";
 import Registration from "./pages/Registration/Registration";
+import PropertyDetail from "./pages/PropertyDetail/PropertyDetail";
 
 
 export const sidebarNavItems: SidebarNavItemProps[] = [
@@ -59,7 +60,7 @@ export const routes: RouteProps[] = [
     {
         name: "Property",
         path: RoutePath.PROPERTY_VERIFICATION,
-        component: PropertyVerification 
+        component: PropertyVerification
     },    
     {
         name: "login",
@@ -70,5 +71,11 @@ export const routes: RouteProps[] = [
         name: "registration",
         path: RoutePath.COLLEGE_REGISTRATION,
         component: Registration
-    },    
+    },
+    {
+        name: "property",
+        path: RoutePath.PROPERTY_DETAIL,
+        origin: "properties",
+        component: PropertyDetail
+    }
 ];

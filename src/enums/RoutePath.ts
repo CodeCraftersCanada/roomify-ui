@@ -1,9 +1,10 @@
 export enum RoutePath {
     DASHBOARD = "/",
     USER_VERIFICATION = "/user-verification",
-    PROPERTY_VERIFICATION = "/property-verification",
+    PROPERTY_VERIFICATION = "/properties",
     PROPERTY_LISTING = "/property-listing",
     PROPERTY_AGREEMENT = "/property-agreement",
+    PROPERTY_DETAIL = "/property/:id",
     LOG_IN = "/login",
     LOG_OUT = "/logout",
     FORGOT_PASSWORD = "/forgot_password",

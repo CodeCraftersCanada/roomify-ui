@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./PropertyVerification.scss";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import PropertyProps from "../../models/PropertyProps";
+import { useNavigate } from 'react-router-dom';
 
 const PropertyVerification = () => {
     const [properties, setProperties] = useState<PropertyProps[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setProperties([
@@ -16,7 +18,7 @@ const PropertyVerification = () => {
                 "area": 2508,
                 "beds": 3,
                 "baths": 2,
-                "imageUrl": "test"  
+                "imageUrl": "test"
             },
             {
                 "status": "Pending",
@@ -26,7 +28,7 @@ const PropertyVerification = () => {
                 "area": 2508,
                 "beds": 3,
                 "baths": 2,
-                "imageUrl": "test"  
+                "imageUrl": "test"
             },
             {
                 "status": "Rejected",
@@ -36,10 +38,15 @@ const PropertyVerification = () => {
                 "area": 2508,
                 "beds": 3,
                 "baths": 2,
-                "imageUrl": "test"  
+                "imageUrl": "test"
             }                        
         ]);
     }, []);
+
+    const handlePropertyDetail = () => {
+        console.log('PRINTING');
+        navigate('/property/1');
+    };
 
     const renderItem = (property: PropertyProps) => {
         return (
@@ -52,6 +59,7 @@ const PropertyVerification = () => {
                 beds={property.beds}
                 baths={property.baths}
                 imageUrl={property.imageUrl}
+                onHandleEvent={handlePropertyDetail}
             />
         );
     };

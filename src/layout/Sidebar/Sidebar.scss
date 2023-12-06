@@ -56,7 +56,7 @@
     height: 100px; 
 }
 
-.sidebar-subitems > .sidebar-item {
+.sidebar-subitems > div > .sidebar-item {
     padding-left: 50px;
     padding-right: 0;
     width: calc(320px - 48px);

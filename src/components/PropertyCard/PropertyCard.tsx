@@ -3,9 +3,9 @@ import './PropertyCard.scss';
 import PropertyProps from '../../models/PropertyProps';
 import propertyHolder from "../../assets/property-holder.png"
 
-const PropertyCard: React.FC<PropertyProps> = ({imageUrl, status, price, title, address, area, beds, baths}) => {
+const PropertyCard: React.FC<PropertyProps> = ({imageUrl, status, price, title, address, area, beds, baths, onHandleEvent}) => {
   return (
-    <div className="property-card">
+    <div className="property-card" onClick={onHandleEvent}>
       <img src={propertyHolder} alt="Property" className="property-image" />
       <div className="card-property-content">
         <div className={`badge-v2 card-property ${status === "Approved" ? 'approved' : ''} ${status === "Pending" ? 'pending' : ''} ${status === "Rejected" ? 'rejected' : ''}`}>{status}</div>

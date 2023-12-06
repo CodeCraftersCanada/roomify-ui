@@ -13,25 +13,24 @@ const Sidebar = () => {
         navigate(path);
     };
 
-    const renderNavItem = (item: SidebarNavItemProps) => {
+    const renderNavItem = (item: SidebarNavItemProps, index: number) => {
         const isActive = location.pathname === item.path;
-
         return (
-            <>
-                <div 
+            <div key={item.name + index+1}>
+                <div
                     className={`sidebar-item ${item.children ? 'has-children' : ''} ${isActive ? 'active' : ''}`} 
-                    key={item.name}
+                    key={item.name + index+2}
                     onClick={() => item.path && handleNavigation(item.path)}
                 >
                     <span><item.icon/></span>
                     <span className="sidebar-label">{item.name}</span>
                 </div>
                 {item.children && (
-                    <div className="sidebar-subitems">
-                        {item.children.map(subItem => renderNavItem(subItem))}
+                    <div className="sidebar-subitems"  key={item.name + index+3}>
+                        {item.children.map((subItem, subIndex) => renderNavItem(subItem, subIndex))}
                     </div>
                 )}
-            </>
+            </div>
         );
     };
 
@@ -42,7 +41,7 @@ const Sidebar = () => {
             </div>
             <IconContext.Provider value={{ color: "#626262", size: "1.5em" }}>
                 <div className="sidebar-content">
-                    {sidebarNavItems.map(item => renderNavItem(item))}
+                    {sidebarNavItems.map((item, index) => renderNavItem(item, index))}
                 </div>
             </IconContext.Provider>
         </div>
