@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
 import { IconContext } from "react-icons";
@@ -13,8 +14,15 @@ const Sidebar = () => {
         navigate(path);
     };
 
-    const renderNavItem = (item: SidebarNavItemProps, index: number) => {
-        const isActive = location.pathname === item.path;
+    const renderNavItem = (item: SidebarNavItemProps, index: number, isSubItem: boolean = false) => {
+        let isActive = false;
+        if (isSubItem) {
+            isActive = item.path !== undefined ? location.pathname.startsWith(item.path) : false;
+        }
+        else {
+            isActive = location.pathname === item.path;
+        }
+        
         return (
             <div key={item.name + index+1}>
                 <div
@@ -27,7 +35,7 @@ const Sidebar = () => {
                 </div>
                 {item.children && (
                     <div className="sidebar-subitems"  key={item.name + index+3}>
-                        {item.children.map((subItem, subIndex) => renderNavItem(subItem, subIndex))}
+                        {item.children.map((subItem, subIndex) => renderNavItem(subItem, subIndex, true))}
                     </div>
                 )}
             </div>
