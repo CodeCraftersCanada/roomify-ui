@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./UserVerification.scss";
+import { useNavigate } from 'react-router-dom';
+import UserCard from "../../components/UserCard/UserCard";
+import UserProps from "../../models/UserProps";
 
 const UserVerification = () => {
+    const [users, setUsers] = useState<UserProps[]>([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setUsers([
+            {
+                "image": "https://randomuser.me/api/portraits/men/3.jpg",
+                "fullName": "Jhon Doe",
+                "phone": "437-123-4567",
+                "email": "jhondoe@gmail.com",
+                "enabled": 1,
+                "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit et cupiditate deleniti."
+            }                      
+        ]);
+    }, []);    
+
+    const handleUserDetail = () => {
+        navigate('/user/1');
+    };
+
+    const renderItem = (user: UserProps, index: number) => {
+        return (
+            <UserCard 
+                image={user.image}
+                fullName={user.fullName}
+                phone={user.phone}
+                email={user.email}
+                enabled={user.enabled}
+                about={user.about}
+                onHandleEvent={handleUserDetail}
+                key={user.fullName + index}
+            />
+        );
+    };    
+
     return (
         <div>
             <div className="search-container">
@@ -10,32 +48,8 @@ const UserVerification = () => {
                     <i className="fa fa-search"></i>
                 </button>
             </div>
-                        
-            <div className="card card-one">
-            <header>
-                <div className="avatar">
-                <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Jhon Doe" />
-                </div>
-            </header>
 
-            <h3>Jhon Doe</h3>
-            <div className="desc">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit et cupiditate deleniti.
-            </div>
-            <div className="contacts">
-                <a href=""><i className="fa fa-phone"></i></a>
-                <a href=""><i className="fa fa-whatsapps"></i></a>
-                <a href=""><i className="fa fa-envelope"></i></a>
-                <div className="clear"></div>
-            </div>
-
-            <footer>
-                <a href=""><i className="fa-brands fa-facebook"></i></a>
-                <a href=""><i className="fa-brands fa-linkedin"></i></a>
-                <a href=""><i className="fa-brands fa-twitter"></i></a>
-                <a href=""><i className="fa-brands fa-instagram"></i></a>
-            </footer>
-            </div>            
+            {users.map((user, index) => renderItem(user, index))}
         </div>
     )
 }
