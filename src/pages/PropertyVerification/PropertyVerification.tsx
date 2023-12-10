@@ -48,7 +48,7 @@ const PropertyVerification = () => {
         navigate('/property/1');
     };
 
-    const renderItem = (property: PropertyProps) => {
+    const renderItem = (property: PropertyProps, index: number) => {
         return (
             <PropertyCard 
                 status={property.status}
@@ -60,6 +60,7 @@ const PropertyVerification = () => {
                 baths={property.baths}
                 imageUrl={property.imageUrl}
                 onHandleEvent={handlePropertyDetail}
+                key={property.title + index}
             />
         );
     };
@@ -74,7 +75,7 @@ const PropertyVerification = () => {
             </div>
 
             <div className="property-items-container">
-                {properties.map(property => renderItem(property))}
+                {properties.map((property, index) => renderItem(property, index))}
             </div>
         </div>
     );
