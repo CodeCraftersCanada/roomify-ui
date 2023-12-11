@@ -7,6 +7,7 @@ import Registration from "./pages/Registration/Registration";
 import PropertyDetail from "./pages/PropertyDetail/PropertyDetail";
 import UserDetail from "./pages/UserDetail/UserDetail";
 import Report from "./pages/Report/Report";
+import LandlordDetail from "./pages/LandlordDetail/LandlordDetail";
 
 
 export const sidebarNavItems: SidebarNavItemProps[] = [
@@ -100,5 +101,10 @@ export const routes: RouteProps[] = [
         name: "landlord",
         path: RoutePath.LANDLORD,
         component: Report
-    },    
+    },
+    {
+        name: "landlord",
+        path: RoutePath.LANDLORD_DETAIL,
+        component: LandlordDetail
+    },      
 ];
