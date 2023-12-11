@@ -13,11 +13,11 @@ const Home = () => {
 
   return (
     <div className="dashboard">
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="sidebar-item">Dashboard</div>
         <div className="sidebar-item">Properties</div>
         <div className="sidebar-item">Settings</div>
-      </aside>
+      </aside> */}
       <div className="dashboard-main">
         <header className="dashboard-header">
           <h1>Hello, Alicia Amanda</h1>

@@ -51,7 +51,7 @@ const Registration: React.FC<RegistrationProps> = () => {
   return (
     <div className="registration-container">
       <h2>College Registration</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="registration-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="collegeName">College Name:</label>
           <input
