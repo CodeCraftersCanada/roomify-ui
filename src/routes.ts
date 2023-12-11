@@ -1,4 +1,4 @@
-import { MdDashboard, MdOutlineApartment, MdOutlineEditNote, MdOutlinePeopleAlt, MdOutlineSchool, MdOutlineVerified, } from "react-icons/md";
+import { MdDashboard, MdOutlineApartment, MdOutlineEditNote, MdOutlinePeopleAlt, MdOutlinePerson, MdOutlineReport, MdOutlineSchool, MdOutlineVerified, } from "react-icons/md";
 import { SidebarNavItemProps } from "./models/SidebarNavItemProps";
 import { RoutePath } from "./enums/RoutePath";
 import { RouteProps } from "./models/RouteProps";
@@ -6,6 +6,7 @@ import { Home, Login, PropertyVerification, UserVerification } from "./pages";
 import Registration from "./pages/Registration/Registration";
 import PropertyDetail from "./pages/PropertyDetail/PropertyDetail";
 import UserDetail from "./pages/UserDetail/UserDetail";
+import Report from "./pages/Report/Report";
 
 
 export const sidebarNavItems: SidebarNavItemProps[] = [
@@ -41,6 +42,18 @@ export const sidebarNavItems: SidebarNavItemProps[] = [
                 name: "Colleges",
                 path: RoutePath.COLLEGE_REGISTRATION,
                 icon: MdOutlineSchool,
+                component: Registration
+            }          
+        ]
+    },
+    {
+        name: "Reports",
+        icon: MdOutlineReport,
+        children: [
+            {
+                name: "Landlords",
+                path: RoutePath.LANDLORD,
+                icon: MdOutlinePerson,
                 component: Registration
             }          
         ]
@@ -82,5 +95,10 @@ export const routes: RouteProps[] = [
         name: "user",
         path: RoutePath.USER_DETAIL,
         component: UserDetail
-    }    
+    },
+    {
+        name: "landlord",
+        path: RoutePath.LANDLORD,
+        component: Report
+    },    
 ];

@@ -13,4 +13,6 @@ export enum RoutePath {
     MESSAGES = "/messages",
     SETTINGS = "/settings",
     COLLEGE_REGISTRATION = "/college-detail",
+    LANDLORD = "/landlord",
+    LANDLORD_DETAIL = "/landlord/:id"
 }
