@@ -8,7 +8,7 @@ const PropertyCard: React.FC<PropertyProps> = ({imageUrl, status, price, title, 
     <div className="property-card" onClick={onHandleEvent}>
       <img src={propertyHolder} alt="Property" className="property-image" />
       <div className="card-property-content">
-        <div className={`badge-v2 card-property ${status === "Approved" ? 'approved' : ''} ${status === "Pending" ? 'pending' : ''} ${status === "Rejected" ? 'rejected' : ''}`}>{status}</div>
+        { status && <div className={`badge-v2 card-property ${status === "Approved" ? 'approved' : ''} ${status === "Pending" ? 'pending' : ''} ${status === "Rejected" ? 'rejected' : ''}`}>{status}</div> }
         <div className="property-price">${price.toLocaleString()}</div>
         <div className="property-title">{title}</div>
         <div className="property-address flex">

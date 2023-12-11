@@ -1,5 +1,5 @@
 export default interface PropertyProps { 
-    status: string,
+    status?: string,
     price: number,
     title: string,
     address: string,

@@ -1,1 +1,165 @@
 @import "../../styles/global-var.scss";
+
+.landlord-detail-container {
+    margin: 2rem;
+}
+
+.container-layout {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+    gap: 20px;
+
+    .left {
+        width: 80%;
+        .landlord-about {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;  
+            gap: 20px;
+
+            .landlord-contact {
+                width: 40%;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: $white;
+                text-align: center;
+                .landlord-name {
+                    font-weight: 600;
+                }
+                .horizontal-divider {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+
+                .avatar {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    align-items: stretch;
+                    align-content: stretch;   
+                    margin-bottom: 20px;
+
+                    > img {
+                        border-radius: 50%;
+                    }                                     
+                }
+                .landlord-address {
+                    display: flex;
+                    flex-direction: row;  
+                    gap: 10px;
+                    .landlord-address-item,                                   
+                    .landlord-address-label {
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: nowrap;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        align-content: flex-start;                         
+                        > div {
+                            margin-bottom: 10px;
+                            text-align: left;
+                            color: $gray-4;
+                            font-size: 12px;
+                        }
+                    }
+
+                    .landlord-address-item {
+                        > div {
+                            color: $blue;
+                        }                        
+                    }                    
+                }
+            }
+            .landlord-detail {
+                width: 60%;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: $white; 
+                
+                .horizontal-divider {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }               
+            }
+
+            .agent-detail-content {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: stretch;
+                align-content: stretch;  
+                gap: 20px;   
+                .agent-detail-label,
+                .agent-detail-value {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    align-content: flex-start;                         
+                    > div {
+                        margin-bottom: 10px;
+                        text-align: left;
+                        color: $gray-4;
+                        font-size: 12px;
+                    }                    
+                }             
+            }
+            .landlord-listing {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+            }
+            .card-listing {
+                padding: 15px;
+                border-radius: 8px;
+                background-color: $white;                 
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                align-content: center; 
+
+                > span:nth-child(1) {
+                    padding-bottom: 10px;
+                }             
+            }
+        }
+        .landlord-active-listing {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: $white;   
+            margin-top: 20px;
+        }
+        .active-listing {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: center;    
+            gap: 20px;        
+        }      
+    }
+
+    .right {
+        width: 20%;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: $white;        
+    }
+}
