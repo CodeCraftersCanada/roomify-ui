@@ -4,7 +4,7 @@ import "./UserDetail.scss";
 import UserProps from "../../models/UserProps";
 import loasample from "../../assets/LOA-SAMPLE.jpg";
 import { MdOutlineCheck, MdOutlineClose } from "react-icons/md";
-import { getUserByUID } from "../../services/userService";
+import { getUserByUID, updateUser } from "../../services/userService";
 import avatar from "../../assets/avatar.png";
 
 const UserDetail = () => {
@@ -37,13 +37,37 @@ const UserDetail = () => {
         }
     }, []); 
 
+    const handleVerify = (status: number) => {
+        let data = {
+            uid: uid,
+            verified: status
+        }
+
+        updateUser(data)
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    console.log("test ", response.data)
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });  
+    };    
+
     return (
-        <div className="user-detail-container">
+        <div className="user-detail-container"> 
+
+            <div className="verify-button">
+                <button className="violet" onClick={() => handleVerify(2)}>REJECT</button>
+                <button onClick={() => handleVerify(1)}>APPROVED</button>
+            </div>
             <div className="user-detail-header">
                 <div className="user-detail-left">
-                    {/* <div className="avatar">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Jhon Doe" />
-                    </div> */}
                     <div className="avatar">
                         { user.image_path === "http://example1.com" && <img src={avatar} alt="Avatar placeholder" />} 
                         { user.image_path !== "http://example1.com" && <img src={user.image_path} alt="Jhon Doe" />}                

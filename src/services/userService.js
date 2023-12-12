@@ -9,4 +9,8 @@ const getUserByUID = (uid) => {
 	return axios.get(`${API_BASE_URL}/user/${uid}`);
 };
 
-export { getUsers, getUserByUID };
+const updateUser = (data: any) => {
+	return axios.put(`${API_BASE_URL}/edit-user`, data);
+};
+
+export { getUsers, getUserByUID, updateUser };
