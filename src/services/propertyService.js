@@ -9,4 +9,8 @@ const getPropertiesByID = (id) => {
 	return axios.get(`${API_BASE_URL}/properties/${id}`);
 };
 
-export { getProperties, getPropertiesByID };
+const updateProperties = (id, data) => {
+	return axios.put(`${API_BASE_URL}/properties/${id}`, data);
+};
+
+export { getProperties, getPropertiesByID, updateProperties };

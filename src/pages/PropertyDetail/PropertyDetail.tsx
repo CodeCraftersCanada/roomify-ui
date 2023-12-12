@@ -5,6 +5,7 @@ import propertyHolderBig from "../../assets/property-holder-big.png"
 import { MdOutlineCameraAlt } from "react-icons/md";
 import PropertyProps from "../../models/PropertyProps";
 import { getPropertiesByID } from "../../services/propertyService";
+import { updateProperties } from "../../services/propertyService";
 
 const PropertyDetail = () => {
     const { id } = useParams();
@@ -46,10 +47,36 @@ const PropertyDetail = () => {
         
     }, [id]);
 
+    const handleVerify = (status: number) => {
+        let data = {
+            uid: id,
+            verified: status
+        }
+
+        updateProperties(id, data)
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    console.log("test ", response.data)
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });  
+    };     
+
     if (isLoading) return <div>Loading...</div>;
 
     return (
         <div className="property-detail-container">
+            <div className="verify-button">
+                <button className="violet" onClick={() => handleVerify(2)}>REJECT</button>
+                <button onClick={() => handleVerify(1)}>APPROVED</button>
+            </div>            
             <section id="property-image" className="section property-image">
                 <div className="image-wrapper property">
                     <img src={propertyHolderBig} alt="property" className="image cover" /></div>
