@@ -29,10 +29,11 @@ const LandlordDetail = () => {
             <PropertyCard 
                 price={property.price}
                 title={property.title}
-                address={property.address}
-                area={property.area}
-                beds={property.beds}
-                baths={property.baths}
+                address1={property.address1}
+                city={property.city}
+                area={1800}
+                bedroom_number={property.bedroom_number}
+                baths={1}
                 imageUrl={property.imageUrl}
                 key={property.title + index}
             />
@@ -42,22 +43,24 @@ const LandlordDetail = () => {
     useEffect(() => {
         setProperties([
             {
-                "status": "Approved",
-                "price": 8000,
+                "property_status_id": {name : "Approved"},
+                "price": { $numberDecimal: 8000},
                 "title": "Home in Downtown, Los Angeles",
-                "address": "8706 Herrick Ave, Los Angeles",
+                "address1": "8706 Herrick Ave",
+                "city": "Los Angeles",
                 "area": 2508,
-                "beds": 3,
+                "bedroom_number": 3,
                 "baths": 2,
                 "imageUrl": "test"
             },
             {
-                "status": "Pending",
-                "price": 2050,
+                "property_status_id": {name: "Pending"},
+                "price": { $numberDecimal: 8000},
                 "title": "Cozy House, Los Angeles",
-                "address": "8706 Herrick Ave, Los Angeles",
+                "address1": "8706 Herrick Ave",
+                "city": "Los Angeles",
                 "area": 2508,
-                "beds": 3,
+                "bedroom_number": 3,
                 "baths": 2,
                 "imageUrl": "test"
             }                       

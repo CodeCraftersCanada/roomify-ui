@@ -3,44 +3,27 @@ import "./PropertyVerification.scss";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import PropertyProps from "../../models/PropertyProps";
 import { useNavigate } from 'react-router-dom';
+import { getProperties } from "../../services/propertyService";
 
 const PropertyVerification = () => {
     const [properties, setProperties] = useState<PropertyProps[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setProperties([
-            {
-                "status": "Approved",
-                "price": 8000,
-                "title": "Home in Downtown, Los Angeles",
-                "address": "8706 Herrick Ave, Los Angeles",
-                "area": 2508,
-                "beds": 3,
-                "baths": 2,
-                "imageUrl": "test"
-            },
-            {
-                "status": "Pending",
-                "price": 2050,
-                "title": "Cozy House, Los Angeles",
-                "address": "8706 Herrick Ave, Los Angeles",
-                "area": 2508,
-                "beds": 3,
-                "baths": 2,
-                "imageUrl": "test"
-            },
-            {
-                "status": "Rejected",
-                "price": 8000,
-                "title": "Home in Downtown, Los Angeles",
-                "address": "8706 Herrick Ave, Los Angeles",
-                "area": 2508,
-                "beds": 3,
-                "baths": 2,
-                "imageUrl": "test"
-            }                        
-        ]);
+        getProperties()
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    setProperties(response.data.properties);
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });
     }, []);
 
     const handlePropertyDetail = () => {
@@ -51,13 +34,14 @@ const PropertyVerification = () => {
     const renderItem = (property: PropertyProps, index: number) => {
         return (
             <PropertyCard 
-                status={property.status}
-                price={property.price}
+                property_status_id={property.property_status_id}
+                price={property.price.$numberDecimal}
                 title={property.title}
-                address={property.address}
-                area={property.area}
-                beds={property.beds}
-                baths={property.baths}
+                address1={property.address1}
+                city={property.city}
+                area={1800}
+                bedroom_number={property.bedroom_number}
+                baths={1}
                 imageUrl={property.imageUrl}
                 onHandleEvent={handlePropertyDetail}
                 key={property.title + index}
