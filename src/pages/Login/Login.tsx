@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -14,6 +14,7 @@ import "./Login.scss";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../stores/authSlice';
+import { signIn } from '../../services/authService';
 
 
 const defaultTheme = createTheme();
@@ -21,12 +22,27 @@ const defaultTheme = createTheme();
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        //const data = new FormData(event.currentTarget);
-        dispatch(login({"token": "test"}));
-        navigate('/');   
+
+        signIn(email, password)
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    dispatch(login({"token": "test"}));
+                    navigate('/');
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });   
     };
 
   return (
@@ -54,6 +70,10 @@ const Login = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              value={email}
             />
             <TextField
               margin="normal"
@@ -64,6 +84,10 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              value={password}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
