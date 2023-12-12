@@ -26,9 +26,10 @@ const PropertyVerification = () => {
               });
     }, []);
 
-    const handlePropertyDetail = () => {
-        console.log('PRINTING');
-        navigate('/property/1');
+    const handlePropertyDetail = (id?: string) => {
+        if (id) {
+            navigate(`/property/${id}`);
+        }
     };
 
     const renderItem = (property: PropertyProps, index: number) => {
@@ -43,7 +44,7 @@ const PropertyVerification = () => {
                 bedroom_number={property.bedroom_number}
                 baths={1}
                 imageUrl={property.imageUrl}
-                onHandleEvent={handlePropertyDetail}
+                onHandleEvent={() => handlePropertyDetail(property?._id)}
                 key={property.title + index}
             />
         );

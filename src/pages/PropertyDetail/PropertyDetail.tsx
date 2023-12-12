@@ -1,9 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./PropertyDetail.scss";
 import propertyHolderBig from "../../assets/property-holder-big.png"
 import { MdOutlineCameraAlt } from "react-icons/md";
+import PropertyProps from "../../models/PropertyProps";
+import { getPropertiesByID } from "../../services/propertyService";
 
 const PropertyDetail = () => {
+    const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
+    const emptyProperty: PropertyProps = {
+        "_id": "",
+        "property_status_id": {name: ""},
+        "price": { $numberDecimal: 2000},
+        "title": "Home in Downtown, Los Angeles",
+        "address1": "",
+        "city": "",
+        "area": 1230,
+        "bedroom_number": 3, 
+        "baths": 2,
+        "imageUrl": "https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f31046d027b_icon-4-features-property-posts-realtor-template.svg"
+    };
+    const [property, setProperty] = useState<PropertyProps>(emptyProperty);
+
+    useEffect(() => {
+        setIsLoading(true);
+        if (id) {
+            getPropertiesByID(id)
+            .then((response) => {
+            if (response.data && response.data.status) {
+                try {
+                    setProperty(response.data.property);
+                    setIsLoading(false);
+                    console.log(" test ", isLoading);
+                } catch (error) {
+                    console.log("Dispatch error: ", error);
+                }
+            }
+            })
+            .catch((error) => {
+                console.log("Error: Invalid credentials!");
+            });            
+        }
+
+        
+    }, [id]);
+
+    if (isLoading) return <div>Loading...</div>;
+
     return (
         <div className="property-detail-container">
             <section id="property-image" className="section property-image">
@@ -16,22 +60,22 @@ const PropertyDetail = () => {
             </section>
             <div className="flex property-detail-content">
                 <div>
-                    <div className="property-address">8706 Herrick Ave, Los Angeles</div>
-                    <div className="property-name">Home in Downtown, Los Angeles</div>
+                    <div className="property-address">{property.address1}, {property.city}</div>
+                    <div className="property-name">{property && property.name}</div>
                     <div className="property-details property-detail-badge">
                         <div className="badge spacing-12px">
                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f31046d027b_icon-4-features-property-posts-realtor-template.svg" loading="eager" alt="" className="image badge-icon" />
-                            <div>2000</div>
+                            <div>1800</div>
                             <div>&nbsp;sqft</div>
                         </div>
                         <div className="badge spacing-12px">
                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f23046d027d_icon-3-features-property-posts-realtor-template.svg" loading="eager" alt="" className="image badge-icon" />
-                            <div>3</div>
+                            <div>{property.bedroom_number}</div>
                         </div>  
 
                         <div className="badge spacing-12px">
                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0fc0bc6d027a_icon-2-features-property-posts-realtor-template.svg" loading="eager" alt="" className="image badge-icon" />
-                            <div>2</div>
+                            <div>1</div>
                         </div>
                         <div className="badge spacing-12px">
                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f47866d027c_icon-1-features-property-posts-realtor-template.svg" loading="eager" alt="" className="image badge-icon" />
@@ -41,7 +85,7 @@ const PropertyDetail = () => {
                     <div>
                         <h4 className="about-property">About the property</h4>
                         <p className="property-about color-neutral-600">
-                            Lorem ipsum dolor sit amet consectetur adipiscing elit etiam cras tellus sit tempor amet, nascetur quam ornare proin platea diam amet sed fringilla eget pretium id sagittis in porttitor pharetra dui. A venenatis molestie vitae rutrum eu leo gravida odio arcu neque nulla etiam adipiscing amet. Diam sit tempor ut quis sodales tellus aliquam aliquam quis a nisl sapien nunc id etiam penatibus.
+                            {property && property.description}
                         </p>
                     </div>
                     <div>
@@ -90,7 +134,7 @@ const PropertyDetail = () => {
                     <div className="card style-6 card-property-request-info">
                         <div className="text-200 margin-bottom-10px">Property for rent</div>
                         <div className="flex children-wrap">
-                            <div className="h2-size">$8,000</div>
+                            <div className="h2-size">${property.price.$numberDecimal}</div>
                             <div className="h2-size">&nbsp;USD</div>
                         </div>
                         <div className="horizontal-divider margin-small"></div>
@@ -104,15 +148,6 @@ const PropertyDetail = () => {
                                 <input type="submit" value="Request info" data-wait="Please wait..." className="button-primary bg-primary-1 full-width w-button" />
                                 </div>
                             </form>
-                            {/* <div className="success-message no-box w-form-done" role="region" aria-label="Email Form success">
-                                <div className="flex center mobile-vertical-direction">
-                                <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0fcc656d0283_icon-success-message-realtor-template.svg" loading="eager" alt="" className="image success-message-icon" />
-                                <div className="success-message-text">Your message has been submitted. <br />I will get back to you within <span className="text-breaking-no-wrap">24-48 hours.</span></div>
-                                </div>
-                            </div>
-                            <div className="error-message w-form-fail" role="region" aria-label="Email Form failure">
-                                <div>Oops! Something went wrong.</div>
-                            </div> */}
                         </div>
                         <div>
                             <div className="horizontal-divider margin-top-large-v2"></div>
@@ -120,18 +155,18 @@ const PropertyDetail = () => {
                             <div data-w-id="055e86b3-07ea-cbe9-fa54-17dde8c6d34e" className="flex children-wrap margin-bottom--15px">
                                 <a href="/agent/andy-smith" className="image-wrapper property-agent w-inline-block"><img src="https://assets-global.website-files.com/61d398976d9d0f491b6d0250/61d398976d9d0f3a976d039f_image-avatar-2-agents-realtor-template.jpg" loading="eager" alt="" className="image cover" /></a>
                                 <div className="property-agent-content">
-                                <div className="margin-bottom-12px"><a href="/agent/andy-smith" className="text-300 bold property-agent-name">Andy Smith</a></div>
+                                <div className="margin-bottom-12px"><a href="/agent/andy-smith" className="text-300 bold property-agent-name">{property.user_id?.fullname}</a></div>
                                 <div className="w-layout-grid grid-1-column gap-12px justify-items-start">
                                     <a href="tel:(414)846-712" className="text-200 text-link w-inline-block">
                                         <div className="flex">
                                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f050e6d02d0_icon-2-agents-realtor-template.svg" loading="eager" alt="" className="text-link-icon" />
-                                            <div>(414) 846-712</div>
+                                            <div>{property.user_id?.phone}</div>
                                         </div>
                                     </a>
                                     <a href="mailto:andy@realtorx.com" className="text-200 text-link w-inline-block">
                                         <div className="flex">
                                             <img src="https://assets-global.website-files.com/61d398976d9d0f46c06d0222/61d398976d9d0f14d26d02cf_icon-1-agents-realtor-template.svg" loading="eager" alt="" className="text-link-icon" />
-                                            <div>andy@realtorx.com</div>
+                                            <div>{property.user_id?.email}</div>
                                         </div>
                                     </a>
                                 </div>
