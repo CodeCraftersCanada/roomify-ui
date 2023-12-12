@@ -11,8 +11,8 @@ const Report = () => {
     useEffect(() => {
         setUsers([
             {
-                "image": "https://randomuser.me/api/portraits/men/3.jpg",
-                "fullName": "Jhon Doe",
+                "image_path": "https://randomuser.me/api/portraits/men/3.jpg",
+                "fullname": "Jhon Doe",
                 "phone": "437-123-4567",
                 "email": "jhondoe@gmail.com",
                 "enabled": 1,
@@ -28,14 +28,14 @@ const Report = () => {
     const renderItem = (user: UserProps, index: number) => {
         return (
             <UserCard 
-                image={user.image}
-                fullName={user.fullName}
+                image_path={user.image_path}
+                fullname={user.fullname}
                 phone={user.phone}
                 email={user.email}
                 enabled={user.enabled}
                 about={user.about}
                 onHandleEvent={handleUserDetail}
-                key={user.fullName + index}
+                key={user.fullname + index}
             />
         );
     };    

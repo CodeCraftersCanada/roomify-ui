@@ -3,39 +3,47 @@ import "./UserVerification.scss";
 import { useNavigate } from 'react-router-dom';
 import UserCard from "../../components/UserCard/UserCard";
 import UserProps from "../../models/UserProps";
+import { getUsers } from "../../services/userService";
 
 const UserVerification = () => {
     const [users, setUsers] = useState<UserProps[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setUsers([
-            {
-                "image": "https://randomuser.me/api/portraits/men/3.jpg",
-                "fullName": "Jhon Doe",
-                "phone": "437-123-4567",
-                "email": "jhondoe@gmail.com",
-                "enabled": 1,
-                "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit et cupiditate deleniti."
-            }                      
-        ]);
+        getUsers()
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    console.log("response.data ", response.data.user);
+                    let users: any[] = response.data.user;
+
+                    setUsers(users.filter( (user) => user.user_type_id._id !== 1));
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });
     }, []);    
 
-    const handleUserDetail = () => {
-        navigate('/user/1');
+    const handleUserDetail = (uid?: string) => {
+        navigate(`/user/${uid}`);
     };
 
     const renderItem = (user: UserProps, index: number) => {
         return (
             <UserCard 
-                image={user.image}
-                fullName={user.fullName}
+                image_path={user.image_path}
+                fullname={user.fullname}
                 phone={user.phone}
                 email={user.email}
                 enabled={user.enabled}
                 about={user.about}
-                onHandleEvent={handleUserDetail}
-                key={user.fullName + index}
+                onHandleEvent={() => handleUserDetail(user?.uid)}
+                key={user.fullname + index}
             />
         );
     };    

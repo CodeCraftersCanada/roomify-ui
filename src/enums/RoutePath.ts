@@ -4,8 +4,8 @@ export enum RoutePath {
     PROPERTY_VERIFICATION = "/property",
     PROPERTY_LISTING = "/property-listing",
     PROPERTY_AGREEMENT = "/property-agreement",
-    PROPERTY_DETAIL = "/property/:id",
-    USER_DETAIL = "/user/:id",
+    PROPERTY_DETAIL = "/property/:uid",
+    USER_DETAIL = "/user/:uid",
     LOG_IN = "/login",
     LOG_OUT = "/logout",
     FORGOT_PASSWORD = "/forgot_password",
@@ -14,5 +14,5 @@ export enum RoutePath {
     SETTINGS = "/settings",
     COLLEGE_REGISTRATION = "/college-detail",
     LANDLORD = "/landlord",
-    LANDLORD_DETAIL = "/landlord/:id"
+    LANDLORD_DETAIL = "/landlord/:uid"
 }

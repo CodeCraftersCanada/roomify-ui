@@ -1,5 +1,6 @@
 export default interface UserProps { 
-    fullName: string,
+    uid?: string,
+    fullname: string,
     phone: string,
     email: string,
     enabled: number,
@@ -8,6 +9,6 @@ export default interface UserProps {
     latitude?: DoubleRange,
     longitude?: DoubleRange,
     about?: string,
-    image?: string,
+    image_path?: string,
     onHandleEvent?: () => void,
 }

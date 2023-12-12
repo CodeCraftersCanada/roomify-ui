@@ -1,17 +1,19 @@
 import React from "react";
 import "./UserCard.scss";
 import UserProps from "../../models/UserProps";
+import avatar from "../../assets/avatar.png";
 
-const UserCard: React.FC<UserProps> = ({image, fullName, phone, email, enabled, about, onHandleEvent}) => {
+const UserCard: React.FC<UserProps> = ({image_path, fullname, phone, email, enabled, about, onHandleEvent}) => {
     return (                       
         <div className="card card-one" onClick={onHandleEvent}>
             <header>
                 <div className="avatar">
-                <img src={image} alt="Jhon Doe" />
+                    { image_path === "http://example1.com" && <img src={avatar} alt="Avatar placeholder" />} 
+                    { image_path !== "http://example1.com" && <img src={image_path} alt="Jhon Doe" />}                
                 </div>
             </header>
 
-            <h3>{fullName}</h3>
+            <h3>{fullname}</h3>
             <div className="desc">
                 {about}
             </div>
