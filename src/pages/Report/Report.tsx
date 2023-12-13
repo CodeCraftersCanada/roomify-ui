@@ -3,26 +3,33 @@ import "./Report.scss";
 import { useNavigate } from 'react-router-dom';
 import UserCard from "../../components/UserCard/UserCard";
 import UserProps from "../../models/UserProps";
+import { getUsers } from "../../services/userService";
 
 const Report = () => {
     const [users, setUsers] = useState<UserProps[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setUsers([
-            {
-                "image_path": "https://randomuser.me/api/portraits/men/3.jpg",
-                "fullname": "Jhon Doe",
-                "phone": "437-123-4567",
-                "email": "jhondoe@gmail.com",
-                "enabled": 1,
-                "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit et cupiditate deleniti."
-            }                      
-        ]);
+        getUsers()
+              .then((response) => {
+                if (response.data && response.data.status) {
+                  try {
+                    let users: any[] = response.data.user;
+
+                    setUsers(users.filter( (user) => user.user_type_id._id === 3 && user.verified === 1));
+                  } catch (error) {
+                    console.log("Dispatch error: ", error);
+                  }
+
+                }
+              })
+              .catch((error) => {
+                console.log("Error: Invalid credentials!");
+              });
     }, []);    
 
-    const handleUserDetail = () => {
-        navigate('/landlord/1');
+    const handleUserDetail = (uid?: string) => {
+        navigate(`/user/${uid}`);
     };
 
     const renderItem = (user: UserProps, index: number) => {
@@ -34,7 +41,7 @@ const Report = () => {
                 email={user.email}
                 enabled={user.enabled}
                 about={user.about}
-                onHandleEvent={handleUserDetail}
+                onHandleEvent={() => handleUserDetail(user?.uid)}
                 key={user.fullname + index}
             />
         );

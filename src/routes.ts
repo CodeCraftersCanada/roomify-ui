@@ -22,7 +22,7 @@ export const sidebarNavItems: SidebarNavItemProps[] = [
         icon: MdOutlineVerified,
         children: [
             {
-                name: "Students, Landlords, Colleges",
+                name: "Students & Landlords",
                 path: RoutePath.USER_VERIFICATION,
                 icon: MdOutlinePeopleAlt,
                 component: UserVerification
@@ -68,7 +68,7 @@ export const routes: RouteProps[] = [
         component: Home
     },
     {
-        name: "Students, Landlords, Colleges",
+        name: "Students & Landlords",
         path: RoutePath.USER_VERIFICATION,
         component: UserVerification
     },
