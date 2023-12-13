@@ -29,7 +29,7 @@ const Report = () => {
     }, []);    
 
     const handleUserDetail = (uid?: string) => {
-        navigate(`/user/${uid}`);
+        navigate(`/landlord/${uid}`);
     };
 
     const renderItem = (user: UserProps, index: number) => {
