@@ -8,8 +8,8 @@ const UserCard: React.FC<UserProps> = ({image_path, fullname, phone, email, enab
         <div className="card card-one" onClick={onHandleEvent}>
             <header>
                 <div className="avatar">
-                    { image_path === "http://example1.com" && <img src={avatar} alt="Avatar placeholder" />} 
-                    { image_path !== "http://example1.com" && <img src={image_path} alt="Jhon Doe" />}                
+                    { image_path === "http://example12345.com" && <img src={avatar} alt="Avatar placeholder" />} 
+                    { image_path !== "http://example12345.com" && <img src={image_path} alt="Jhon Doe" />}                
                 </div>
             </header>
 
