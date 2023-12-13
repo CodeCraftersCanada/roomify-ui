@@ -14,10 +14,9 @@ const UserVerification = () => {
               .then((response) => {
                 if (response.data && response.data.status) {
                   try {
-                    console.log("response.data ", response.data.user);
                     let users: any[] = response.data.user;
 
-                    setUsers(users.filter( (user) => user.user_type_id._id !== 1));
+                    setUsers(users.filter( (user) => user.user_type_id._id !== 1 && user.verified === 0));
                   } catch (error) {
                     console.log("Dispatch error: ", error);
                   }

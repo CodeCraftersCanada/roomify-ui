@@ -15,6 +15,7 @@ export default interface PropertyProps {
     user_id?: {
                 email: string,
                 fullname: string,
-                phone: string
+                phone: string,
+                image_path?: string
             },
 }

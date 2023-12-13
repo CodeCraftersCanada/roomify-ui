@@ -180,7 +180,9 @@ const PropertyDetail = () => {
                             <div className="horizontal-divider margin-top-large-v2"></div>
                             <h3>Reach the agent</h3>
                             <div data-w-id="055e86b3-07ea-cbe9-fa54-17dde8c6d34e" className="flex children-wrap margin-bottom--15px">
-                                <a href="/agent/andy-smith" className="image-wrapper property-agent w-inline-block"><img src="https://assets-global.website-files.com/61d398976d9d0f491b6d0250/61d398976d9d0f3a976d039f_image-avatar-2-agents-realtor-template.jpg" loading="eager" alt="" className="image cover" /></a>
+                                <a href="/agent/andy-smith" className="image-wrapper property-agent w-inline-block">
+                                    <img src={property.user_id?.image_path} alt="Jhon Doe" />    
+                                </a>
                                 <div className="property-agent-content">
                                 <div className="margin-bottom-12px"><a href="/agent/andy-smith" className="text-300 bold property-agent-name">{property.user_id?.fullname}</a></div>
                                 <div className="w-layout-grid grid-1-column gap-12px justify-items-start">

@@ -49,7 +49,9 @@ const Report = () => {
                 </button>
             </div>
 
-            {users.map((user, index) => renderItem(user, index))}
+            <div className="user-container">
+                {users.map((user, index) => renderItem(user, index))}
+            </div>
         </div>
     )
 }
