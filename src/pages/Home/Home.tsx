@@ -1,8 +1,41 @@
-import React from 'react';
+// Home.tsx
+import React, { useState, useEffect } from 'react';
 import './Home.scss';
-import SimpleMap from './map'; 
+import SimpleMap from './map';
+import { getProperties } from '../../services/propertyService'; // This should be an API call to fetch multiple properties
+
+// Define a type for the properties you expect to receive from the API
+type Property = {
+  _id: string;
+  title: string;
+  price: {
+    $numberDecimal: string;
+  };
+  imageUrl: string; // Add additional fields as per your data structure
+  // ... other property fields
+};
 
 const Home = () => {
+  const [bestProperties, setBestProperties] = useState<Property[]>([]); // Use the Property type for state
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    // Replace getProperties with the actual function that fetches the properties
+    getProperties() // This function should fetch a list of properties
+      .then(response => {
+        // You need to check the actual structure of your response and adapt accordingly
+        if (response.data && response.data.status) {
+          setBestProperties(response.data.properties); // Assuming the API returns an array of properties
+          setIsLoading(false);
+        }
+      })
+      .catch(error => {
+        console.error('Failed to fetch properties:', error);
+        setIsLoading(false);
+      });
+  }, []);
+
   const today = new Date();
   const formattedDate = today.toLocaleDateString('en-US', {
     weekday: 'long',
@@ -11,13 +44,10 @@ const Home = () => {
     day: 'numeric'
   });
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div className="dashboard">
-      {/* <aside className="sidebar">
-        <div className="sidebar-item">Dashboard</div>
-        <div className="sidebar-item">Properties</div>
-        <div className="sidebar-item">Settings</div>
-      </aside> */}
       <div className="dashboard-main">
         <header className="dashboard-header">
           <h1>Hello, Alicia Amanda</h1>
@@ -34,7 +64,17 @@ const Home = () => {
             {/* User profile card goes here */}
           </section>
           <section className="property-highlights">
-            <div className="property-card">Best Property</div>
+            <h2>Best Properties</h2>
+            <div className="properties-list">
+              {bestProperties.map((property) => (
+                <div key={property._id} className="property-card">
+                  <h3>{property.title}</h3>
+                  <p>Price: ${property.price.$numberDecimal}</p>
+                  <img src={property.imageUrl} alt={property.title} />
+                  {/* Additional property details can be added here */}
+                </div>
+              ))}
+            </div>
             <div className="daily-progress">Daily Progress</div>
           </section>
           <section className="activity-section">

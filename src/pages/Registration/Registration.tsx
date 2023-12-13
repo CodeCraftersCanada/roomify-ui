@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import MapLoader from "./MapLoader"; 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -14,14 +13,13 @@ const Registration: React.FC<RegistrationProps> = () => {
   const [collegeLogo, setCollegeLogo] = useState<File | null>(null);
   const [aboutCollege, setAboutCollege] = useState<string>("");
   const [location, setLocation] = useState<string>("");
-  const [mapCenter, setMapCenter] = useState({ lat: 43.70, lng: -79.42 }); 
 
   const handleLocationSelect = async (value: string) => {
     try {
       const results = await geocodeByAddress(value);
       const latLng = await getLatLng(results[0]);
       setLocation(value);
-      setMapCenter(latLng);
+      // You can still use latLng if needed for other purposes
     } catch (error) {
       console.error("Error selecting location:", error);
     }
@@ -110,13 +108,6 @@ const Registration: React.FC<RegistrationProps> = () => {
 
         <button type="submit">Register College</button>
       </form>
-
-      <div className="map-container">
-        <MapLoader
-          center={mapCenter}
-          apiKey="AIzaSyDH5sDdVj2gQMcPRe2LmndeCOK89VlZDX4" // Google Maps API key
-        />
-      </div>
     </div>
   );
 };
