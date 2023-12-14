@@ -1,14 +1,52 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { PieChart, Pie, Tooltip, Legend } from "recharts";
 import "./LandlordDetail.scss";
 import { MdCheckCircle } from "react-icons/md";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import PropertyProps from "../../models/PropertyProps";
+import UserProps from "../../models/UserProps";
 import { useNavigate } from 'react-router-dom';
+import { getUserByUID } from "../../services/userService";
 
 const LandlordDetail = () => {
+    const [propertyCount, setPropertyCount] = useState(0);
+    const [propertyBookingCount, setPropertyBookingCount] = useState(0);
     const [properties, setProperties] = useState<PropertyProps[]>([]);
     const navigate = useNavigate();
+
+    const { uid } = useParams();
+    const [user, setUser] = useState<UserProps>({
+                "image_path": "https://randomuser.me/api/portraits/men/3.jpg",
+                "fullname": "Jhon Doe",
+                "phone": "437-123-4567",
+                "email": "jhondoe@gmail.com",
+                "enabled": 1,
+                "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit et cupiditate deleniti."
+            });
+
+    useEffect(() => {
+        if (uid) {
+            getUserByUID(uid)
+            .then((response) => {
+            if (response.data && response.data.status) {
+                try {
+                    setUser(response.data.user);
+                    setProperties(response.data.user.properties);
+                    setPropertyCount(response.data.propertyCount);
+                    setPropertyBookingCount(response.data.propertyBookingCount);
+                } catch (error) {
+                    console.log("Dispatch error: ", error);
+                }
+
+            }
+            })
+            .catch((error) => {
+                console.log("Error: Invalid credentials!");
+            });            
+        }
+    }, []); 
+
 
     const data = [
         { name: "Group A", value: 30, fill: "#0088FE" },
@@ -27,7 +65,7 @@ const LandlordDetail = () => {
     const renderItem = (property: PropertyProps, index: number) => {
         return (
             <PropertyCard 
-                price={property.price}
+                price={property.price.$numberDecimal}
                 title={property.title}
                 address1={property.address1}
                 city={property.city}
@@ -40,33 +78,6 @@ const LandlordDetail = () => {
         );
     };    
 
-    useEffect(() => {
-        setProperties([
-            {
-                "property_status_id": {name : "Approved"},
-                "price": { $numberDecimal: 8000},
-                "title": "Home in Downtown, Los Angeles",
-                "address1": "8706 Herrick Ave",
-                "city": "Los Angeles",
-                "area": 2508,
-                "bedroom_number": 3,
-                "baths": 2,
-                "imageUrl": "test"
-            },
-            {
-                "property_status_id": {name: "Pending"},
-                "price": { $numberDecimal: 8000},
-                "title": "Cozy House, Los Angeles",
-                "address1": "8706 Herrick Ave",
-                "city": "Los Angeles",
-                "area": 2508,
-                "bedroom_number": 3,
-                "baths": 2,
-                "imageUrl": "test"
-            }                       
-        ]);
-    }, []);     
-
     return (
         <div className="landlord-detail-container">
             <div className="container-layout">
@@ -76,7 +87,7 @@ const LandlordDetail = () => {
                             <div className="avatar">
                                 <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Jhon Doe" />
                             </div>                            
-                            <span className="landlord-name">John Doe</span>
+                            <span className="landlord-name">{user.fullname}</span>
                             <div className="horizontal-divider"></div>
                             <div className="landlord-address">
                                 <div className="landlord-address-label">
@@ -92,8 +103,8 @@ const LandlordDetail = () => {
                                     <div>Ontario </div>
                                     <div>Canada </div>
                                     <div>M2H 2Y3 </div>
-                                    <div>+1 437-264-1234 </div>
-                                    <div>johndoe@gmail.com </div>
+                                    <div>{user.phone}</div>
+                                    <div>{user.email}</div>
                                 </div>                              
                             </div>
                         </div>
@@ -115,7 +126,7 @@ const LandlordDetail = () => {
                             <div className="landlord-listing">
                                 <div className="card-listing">
                                     <span>Total Listings</span>
-                                    <span>18</span>
+                                    <span>{propertyCount}</span>
                                     <PieChart width={200} height={200}>
                                         <Pie
                                         data={data}
@@ -128,20 +139,20 @@ const LandlordDetail = () => {
                                         dataKey="value"
                                         >
                                         </Pie>      
-                                        <Legend
+                                        {/* <Legend
                                         height={5}
                                         iconType="circle"
                                         layout="vertical"
                                         verticalAlign="middle"
                                         iconSize={5}
                                         formatter={renderColorfulLegendText}
-                                        />                                        
+                                        />                                         */}
                                     </PieChart>                                   
                                 </div>
 
                                 <div className="card-listing">
                                     <span>Properties rent</span>
-                                    <span>12</span>
+                                    <span>{propertyBookingCount}</span>
                                     <PieChart width={200} height={200}>
                                         <Pie
                                         data={data}
@@ -154,14 +165,14 @@ const LandlordDetail = () => {
                                         dataKey="value"
                                         >
                                         </Pie>      
-                                        <Legend
+                                        {/* <Legend
                                         height={5}
                                         iconType="circle"
                                         layout="vertical"
                                         verticalAlign="middle"
                                         iconSize={5}
                                         formatter={renderColorfulLegendText}
-                                        />                                        
+                                        />                                         */}
                                     </PieChart>                                   
                                 </div>                                
                             </div>

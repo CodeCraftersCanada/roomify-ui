@@ -14,7 +14,8 @@ const PropertyVerification = () => {
               .then((response) => {
                 if (response.data && response.data.status) {
                   try {
-                    setProperties(response.data.properties);
+                    let properties: any[] = response.data.properties;
+                    setProperties(properties.filter(property => property.verified === 0));
                   } catch (error) {
                     console.log("Dispatch error: ", error);
                   }
